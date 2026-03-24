@@ -44,8 +44,7 @@ const sendFile = async ({ res, filePath, cacheControl }) => {
   res.end(buffer);
 };
 
-const getCacheControl = ({ pathname }) =>
-  path.extname(pathname) ? 'public, max-age=300' : 'no-cache';
+const getCacheControl = () => 'no-cache, no-store, must-revalidate';
 
 export const serveStaticAsset = async ({ pathname, staticDir, res }) => {
   const filePath = resolveFilePath({ staticDir, pathname });
@@ -65,7 +64,7 @@ export const serveStaticAsset = async ({ pathname, staticDir, res }) => {
     await sendFile({
       res,
       filePath,
-      cacheControl: getCacheControl({ pathname })
+      cacheControl: getCacheControl()
     });
   } catch (error) {
     if (error.code !== 'ENOENT') {

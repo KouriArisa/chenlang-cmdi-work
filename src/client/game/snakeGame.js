@@ -131,7 +131,7 @@ export class SnakeGame {
       random: this.random,
       bestScore: this.bestScore
     });
-    this.#emitState();
+    this._emitState();
   }
 
   start() {
@@ -156,8 +156,8 @@ export class SnakeGame {
       durationMs: 0
     };
 
-    this.#emitState();
-    this.#scheduleNextTick();
+    this._emitState();
+    this._scheduleNextTick();
   }
 
   pause() {
@@ -165,13 +165,13 @@ export class SnakeGame {
       return;
     }
 
-    this.#clearTimer();
+    this._clearTimer();
     this.state = {
       ...this.state,
       status: GAME_STATUS.PAUSED,
       durationMs: this.now() - this.state.startedAt
     };
-    this.#emitState();
+    this._emitState();
   }
 
   resume() {
@@ -185,8 +185,8 @@ export class SnakeGame {
       startedAt: this.now() - this.state.durationMs
     };
 
-    this.#emitState();
-    this.#scheduleNextTick();
+    this._emitState();
+    this._scheduleNextTick();
   }
 
   togglePause() {
@@ -201,7 +201,7 @@ export class SnakeGame {
   }
 
   restart() {
-    this.#clearTimer();
+    this._clearTimer();
     this.bestScore = Math.max(this.bestScore, this.state.score);
     this.state = {
       ...createInitialState({
@@ -213,8 +213,8 @@ export class SnakeGame {
       startedAt: this.now()
     };
 
-    this.#emitState();
-    this.#scheduleNextTick();
+    this._emitState();
+    this._scheduleNextTick();
   }
 
   setDirection(nextDirection) {
@@ -241,7 +241,7 @@ export class SnakeGame {
     });
   }
 
-  #tick() {
+  _tick() {
     if (this.state.status !== GAME_STATUS.RUNNING) {
       return;
     }
@@ -258,23 +258,23 @@ export class SnakeGame {
       bestScore: this.bestScore
     };
 
-    this.#emitState();
+    this._emitState();
 
     if (this.state.status === GAME_STATUS.GAME_OVER) {
-      this.#clearTimer();
+      this._clearTimer();
       this.onGameOver(this.getState());
       return;
     }
 
-    this.#scheduleNextTick();
+    this._scheduleNextTick();
   }
 
-  #scheduleNextTick() {
-    this.#clearTimer();
-    this.timer = setTimeout(() => this.#tick(), this.state.speedMs);
+  _scheduleNextTick() {
+    this._clearTimer();
+    this.timer = setTimeout(() => this._tick(), this.state.speedMs);
   }
 
-  #clearTimer() {
+  _clearTimer() {
     if (!this.timer) {
       return;
     }
@@ -283,7 +283,7 @@ export class SnakeGame {
     this.timer = undefined;
   }
 
-  #emitState() {
+  _emitState() {
     this.onStateChange(this.getState());
   }
 }

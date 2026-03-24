@@ -30,6 +30,10 @@ const leaderboardEmpty = document.querySelector('#leaderboard-empty');
 
 let isSubmitting = false;
 
+if (!context) {
+  throw new Error('当前浏览器不支持 Canvas 2D，上下文初始化失败。');
+}
+
 const readBestScore = () => Number(localStorage.getItem(BEST_SCORE_KEY) ?? 0) || 0;
 
 const writeBestScore = ({ value }) => {
@@ -54,13 +58,33 @@ const getStatusLabel = ({ status }) => {
   return '待机';
 };
 
+const traceRoundedRect = ({ x, y, width, height, radius }) => {
+  const safeRadius = Math.min(radius, width / 2, height / 2);
+
+  context.moveTo(x + safeRadius, y);
+  context.lineTo(x + width - safeRadius, y);
+  context.quadraticCurveTo(x + width, y, x + width, y + safeRadius);
+  context.lineTo(x + width, y + height - safeRadius);
+  context.quadraticCurveTo(x + width, y + height, x + width - safeRadius, y + height);
+  context.lineTo(x + safeRadius, y + height);
+  context.quadraticCurveTo(x, y + height, x, y + height - safeRadius);
+  context.lineTo(x, y + safeRadius);
+  context.quadraticCurveTo(x, y, x + safeRadius, y);
+};
+
 const drawCell = ({ x, y, fillStyle, radius = 6 }) => {
   const pixelX = x * CELL_SIZE;
   const pixelY = y * CELL_SIZE;
 
   context.fillStyle = fillStyle;
   context.beginPath();
-  context.roundRect(pixelX + 1, pixelY + 1, CELL_SIZE - 2, CELL_SIZE - 2, radius);
+  traceRoundedRect({
+    x: pixelX + 1,
+    y: pixelY + 1,
+    width: CELL_SIZE - 2,
+    height: CELL_SIZE - 2,
+    radius
+  });
   context.fill();
 };
 
