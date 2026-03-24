@@ -1,0 +1,11 @@
+# 备注：对应培训阶段 2（项目初始化与环境配置），关联设计文档第 4 节“技术选型”中的 IDE 工程配置。
+# 默认忽略的文件
+/shelf/
+/workspace.xml
+# 已忽略包含查询文件的默认文件夹
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# 基于编辑器的 HTTP 客户端请求
+/httpRequests/

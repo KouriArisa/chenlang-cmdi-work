@@ -1,0 +1,7 @@
+<!-- 备注：对应培训阶段 2（项目初始化与环境配置），关联设计文档第 4 节“技术选型”中的 IDE 检查配置。 -->
+<component name="InspectionProjectProfileManager">
+  <settings>
+    <option name="USE_PROJECT_PROFILE" value="false" />
+    <version value="1.0" />
+  </settings>
+</component>

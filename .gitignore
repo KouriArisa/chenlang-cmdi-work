@@ -1,0 +1,6 @@
+# 备注：对应培训阶段 2（项目初始化与环境配置），关联设计文档第 9 节“非功能要求”中的构建产物管理。
+dist
+node_modules
+data/leaderboard.json
+coverage
+.DS_Store

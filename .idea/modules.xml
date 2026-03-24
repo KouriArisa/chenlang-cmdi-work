@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 备注：对应培训阶段 2（项目初始化与环境配置），关联设计文档第 4 节“技术选型”中的 IDE 工程配置。 -->
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/26ai-demo-project.iml" filepath="$PROJECT_DIR$/.idea/26ai-demo-project.iml" />
+    </modules>
+  </component>
+</project>
